@@ -1,0 +1,30 @@
+<rml>
+	<head>
+		<title>Demo</title>
+		<style>
+			body
+			{
+				font-family: arial;
+				font-weight: normal;
+				font-style: normal;
+				font-size: 15dp;
+				color: white;
+
+				width: 300dp;
+				height: 225dp;
+				
+				margin: auto;
+
+				
+			}
+			input
+            {
+            	color: white;
+            }
+		</style>
+	</head>
+	<body>
+		This is a sample.
+		<input type="text"></input>
+	</body>
+</rml>
