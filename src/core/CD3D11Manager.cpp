@@ -6,9 +6,6 @@
 #include <fstream>
 #include "shaders/shaders.h"
 
-#define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "utils/stb_image_write.h"
-
 void CD3D11Manager::Create()
 {
     width = CAppManager::Get()->GetWidth();
