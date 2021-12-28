@@ -261,10 +261,6 @@ Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> CD3D11Manager::CreateTextureFro
     data.pSysMem = imageRawData;
     data.SysMemPitch = _width * 4;
 
-    char str[256];
-    sprintf(str, "test_%d.png", _width);
-    stbi_write_png(str, _width, _height, 4, imageRawData, _width * 4);
-
     Microsoft::WRL::ComPtr<ID3D11Texture2D> texture2D;
     auto hr = device->CreateTexture2D(&textureDesc, &data, &texture2D);
     if (FAILED(hr))
