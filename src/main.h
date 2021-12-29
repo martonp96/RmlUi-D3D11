@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include <string>
+#include <sstream>
 #include <vector>
 #include <thread>
 #include <chrono>

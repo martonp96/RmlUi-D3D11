@@ -51,7 +51,6 @@ void CRenderInterfaceImpl::Render(GeometryData* geometry, const Rml::Vector2f& t
 
 void CRenderInterfaceImpl::RenderGeometry(Rml::Vertex* vertices, int numVertices, int* indices, int numIndices, Rml::TextureHandle texture, const Rml::Vector2f& translation)
 {
-    printf("RenderGeometry\n");
 	GeometryData geometry((UIVertexData*)vertices, numVertices, (int*)indices, numIndices, texture);
 	Render(&geometry, translation);
 }
@@ -63,13 +62,11 @@ Rml::CompiledGeometryHandle CRenderInterfaceImpl::CompileGeometry(Rml::Vertex* v
 
 void CRenderInterfaceImpl::RenderCompiledGeometry(Rml::CompiledGeometryHandle geometry, const Rml::Vector2f& translation)
 {
-    //printf("RenderCompiledGeometry\n");
 	Render((GeometryData*)geometry, translation);
 }
 
 void CRenderInterfaceImpl::ReleaseCompiledGeometry(Rml::CompiledGeometryHandle geometry)
 {
-    printf("ReleaseCompiledGeometry\n");
 	delete (GeometryData*)geometry;
 }
 
