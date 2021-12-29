@@ -5,8 +5,6 @@
 #include <chrono>
 using namespace std::chrono_literals;
 
-#include "utils/RGBA.h"
-
 #include "core/CAppManager.h"
 #include "core/CD3D11Manager.h"
 #include "core/CSystemInterfaceImpl.h"

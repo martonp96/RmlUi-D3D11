@@ -57,6 +57,27 @@ void CD3D11Manager::Create()
     CreateBS(sd);
 }
 
+void CD3D11Manager::Shutdown()
+{
+    if (device)
+    {
+        device->Release();
+        device = nullptr;
+    }
+
+    if (context)
+    {
+        context->Release();
+        context = nullptr;
+    }
+
+    if (swapChain)
+    {
+        swapChain->Release();
+        swapChain = nullptr;
+    }
+}
+
 void CD3D11Manager::CreateBS(DXGI_SWAP_CHAIN_DESC sd)
 {
     D3D11_BLEND_DESC blendDesc;

@@ -81,16 +81,16 @@ bool CRenderInterfaceImpl::LoadTexture(Rml::TextureHandle& textureHandle, Rml::V
 
 bool CRenderInterfaceImpl::GenerateTexture(Rml::TextureHandle& textureHandle, const byte* source, const Rml::Vector2i& sourceDimensions)
 {
-    printf("GenerateTexture\n");
-
     textureHandle = ++textureCount;
-    textures[textureHandle].reset(new Texture((const char*)source, sourceDimensions.x, sourceDimensions.y));
+    printf("GenerateTexture %d\n", textureHandle);
+
+    textures[textureHandle] = std::make_shared<Texture>((const char*)source, sourceDimensions.x, sourceDimensions.y);
     return textures[textureHandle] != nullptr;
 }
 
 void CRenderInterfaceImpl::ReleaseTexture(Rml::TextureHandle texture)
 {
-    printf("ReleaseTexture\n");
+    printf("ReleaseTexture %d\n", texture);
     textures[texture].reset();
 }
 

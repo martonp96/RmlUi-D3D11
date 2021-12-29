@@ -32,6 +32,7 @@ public:
 	void Create();
 	void PreRender();
 	void Render();
+	void Shutdown();
 
 	ID3D11DeviceContext* GetContext() { return context; }
 

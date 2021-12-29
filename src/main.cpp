@@ -47,6 +47,11 @@ int main(int argc, char* argv[])
         CD3D11Manager::Get()->Render();
     }
 
-    Rml::Shutdown();
+    CD3D11Manager::Get()->Shutdown();
+
+    context->UnloadAllDocuments();
+    Rml::RemoveContext(context->GetName());
+
     Rml::Debugger::Shutdown();
+    Rml::Shutdown();
 }

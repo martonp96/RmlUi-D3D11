@@ -57,20 +57,19 @@ class Texture
 public:
 	Texture(const char* source, int width, int height) : srv_texture(nullptr)
 	{
-		srv_texture = CD3D11Manager::Get()->CreateTextureFromPixels(source, width, height).Get();
+		srv_texture = CD3D11Manager::Get()->CreateTextureFromPixels(source, width, height);
 	}
 
 	Texture(const char* source) : srv_texture(nullptr)
 	{
-		srv_texture = CD3D11Manager::Get()->CreateTextureFromFile(source).Get();
+		srv_texture = CD3D11Manager::Get()->CreateTextureFromFile(source);
 	}
 
 	~Texture()
 	{
-		if (srv_texture)
+		if (srv_texture.Get())
 		{
-			srv_texture->Release();
-			srv_texture = nullptr;
+			srv_texture.Reset();
 		}
 	}
 

@@ -3,6 +3,9 @@
 
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	if (msg == WM_SYSCOMMAND && wParam == SC_CLOSE)
+		PostQuitMessage(0);
+
 	CAppManager::Get()->WndProc(msg, wParam, lParam);
     return ::DefWindowProc(hWnd, msg, wParam, lParam);
 }
