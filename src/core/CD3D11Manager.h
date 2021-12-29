@@ -48,8 +48,8 @@ public:
 	void SetTemporaryScissoredRS();
 	void SetScissorRectangle(int x, int y, int width, int height);
 
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> CreateTextureFromFile(const char* imageFileData);
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> CreateTextureFromPixels(const char* imageRawData, unsigned int width, unsigned int height);
+	ID3D11ShaderResourceView* CreateTextureFromFile(const char* imageFileData);
+	ID3D11ShaderResourceView* CreateTextureFromPixels(const char* imageRawData, unsigned int width, unsigned int height);
 
 	template <typename T>
 	void EditBuffer(const T& data, ID3D11Buffer* bufferPointer);

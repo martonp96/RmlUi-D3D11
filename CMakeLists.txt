@@ -46,6 +46,6 @@ include_directories("./" "./src")
 
 set_property(TARGET rmluidx11 PROPERTY VS_DEBUGGER_WORKING_DIRECTORY $<TARGET_FILE_DIR:rmluidx11>)
 
-add_custom_command(TARGET rmluidx11 PRE_BUILD 
+add_custom_command(TARGET rmluidx11 POST_BUILD 
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/assets/ $<TARGET_FILE_DIR:rmluidx11> 
 )

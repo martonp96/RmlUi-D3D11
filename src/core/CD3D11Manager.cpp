@@ -237,12 +237,17 @@ void CD3D11Manager::SetAlphaBS()
     context->OMSetBlendState(alphaBS, blendFactors, 0xffffffff);
 }
 
-Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> CD3D11Manager::CreateTextureFromFile(const char* path)
+ID3D11ShaderResourceView* CD3D11Manager::CreateTextureFromFile(const char* path)
 {
     Microsoft::WRL::ComPtr<ID3D11Resource> textureResource;
-    Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> textureView;
+    ID3D11ShaderResourceView* textureView;
 
     std::ifstream file(path, std::ios::in | std::ios::binary | std::ios::ate);
+
+    if (!file.is_open()) {
+        CAppManager::Get()->Msg("Failed to open file: %s", path);
+        return nullptr;
+    }
 
     auto size = file.tellg();
     auto imageFileData = new char[size];
@@ -250,17 +255,18 @@ Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> CD3D11Manager::CreateTextureFro
     file.read(imageFileData, size);
     file.close();
 
-    auto hr = DirectX::CreateWICTextureFromMemoryEx(device, (const uint8_t*)imageFileData, size, 0, D3D11_USAGE_DEFAULT, D3D11_BIND_SHADER_RESOURCE, 0, 0, DirectX::WIC_LOADER_IGNORE_SRGB | DirectX::WIC_LOADER_FORCE_RGBA32, textureResource.GetAddressOf(), textureView.GetAddressOf());
+    auto hr = DirectX::CreateWICTextureFromMemoryEx(device, (const uint8_t*)imageFileData, size, 0, D3D11_USAGE_DEFAULT, D3D11_BIND_SHADER_RESOURCE, 0, 0, DirectX::WIC_LOADER_IGNORE_SRGB | DirectX::WIC_LOADER_FORCE_RGBA32, textureResource.GetAddressOf(), &textureView);
 
     if (FAILED(hr))
     {
         CAppManager::Get()->Msg("Could not create texture from file data: 0x%08x", hr);
+        return nullptr;
     }
 
     return textureView;
 }
 
-Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> CD3D11Manager::CreateTextureFromPixels(const char* imageRawData, unsigned int _width, unsigned int _height)
+ID3D11ShaderResourceView* CD3D11Manager::CreateTextureFromPixels(const char* imageRawData, unsigned int _width, unsigned int _height)
 {
     D3D11_TEXTURE2D_DESC textureDesc = {};
 
@@ -292,7 +298,7 @@ Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> CD3D11Manager::CreateTextureFro
     srvDesc.Texture2D.MostDetailedMip = 0;
     srvDesc.Texture2D.MipLevels = 1;
 
-    Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> textureSRV;
+    ID3D11ShaderResourceView* textureSRV;
     device->CreateShaderResourceView(texture2D.Get(), &srvDesc, &textureSRV);
 
     return textureSRV;

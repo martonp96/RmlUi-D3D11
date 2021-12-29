@@ -26,5 +26,6 @@
 	<body>
 		This is a sample.
 		<input type="text"></input>
+		<img src="rmlui.png" width=300 height=300></img>
 	</body>
 </rml>

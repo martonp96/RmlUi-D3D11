@@ -53,7 +53,7 @@ struct FXAAData
 
 class Texture
 {
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> srv_texture;
+	ID3D11ShaderResourceView* srv_texture;
 public:
 	Texture(const char* source, int width, int height) : srv_texture(nullptr)
 	{
@@ -67,14 +67,15 @@ public:
 
 	~Texture()
 	{
-		if (srv_texture.Get())
+		if (srv_texture)
 		{
-			srv_texture.Reset();
+			srv_texture->Release();
+			srv_texture = nullptr;
 		}
 	}
 
 	ID3D11ShaderResourceView* getShaderResourceView()
 	{
-		return srv_texture.Get();
+		return srv_texture;
 	}
 };

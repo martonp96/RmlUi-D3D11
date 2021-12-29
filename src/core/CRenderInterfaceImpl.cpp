@@ -39,8 +39,12 @@ void CRenderInterfaceImpl::Render(GeometryData* geometry, const Rml::Vector2f& t
     deviceMgr->EditBuffer(shit, m_ModelMatrixBuffer.Get());
     deviceMgr->GetContext()->VSSetConstantBuffers(PER_OBJECT_VS_CPP, 1, m_ModelMatrixBuffer.GetAddressOf());
 
-    ID3D11ShaderResourceView* textt[] = { textures[geometry->textureHandle]->getShaderResourceView() };        
-    deviceMgr->GetContext()->PSSetShaderResources(DIFFUSE_PS_CPP, 1, textt);
+    ID3D11ShaderResourceView* srvs[1];
+
+    auto srv = textures[geometry->textureHandle]->getShaderResourceView();
+    srvs[0] = srv ? srv : textures[0]->getShaderResourceView();
+
+    deviceMgr->GetContext()->PSSetShaderResources(DIFFUSE_PS_CPP, 1, srvs);
 
     deviceMgr->GetContext()->DrawIndexed(geometry->indexCount, 0u, 0u);
 }
